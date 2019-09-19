@@ -15,12 +15,20 @@ const Place = function(data) {
 const ViewModel = function () {
     let self = this;
     this.placeList = ko.observableArray([]);
+    this.query = ko.observable('');
 
     placeModel.forEach((item) => {
         this.placeList.push(new Place(item));
-    })
-    // console.log(this.listItem)
-
+    });
+    // everytime query/placeList changes, this gets computed again
+    self.filteredPlaces = ko.computed(function () {
+        if (!self.query()) {
+            return self.placeList();
+        } else {
+            return self.placeList()
+                .filter(place => place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1);
+        }
+    });
 };
 
 ko.applyBindings(new ViewModel()); // This makes Knockout get to work

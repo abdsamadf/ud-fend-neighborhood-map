@@ -24,9 +24,12 @@
 
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Neighborhood Map</span>
-            <nav class="mdl-navigation" data-bind="foreach: placeList">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" data-bind="value: query, valueUpdate: 'keyup'" type="text" id="searchBox">
+                <label class="mdl-textfield__label" for="searchBox">Search...</label>
+            </div>
+            <nav class="mdl-navigation" data-bind="foreach: filteredPlaces">
                 <a class="mdl-navigation__link" href="" data-bind="text: $data.title"></a>
-                <!-- <a class="mdl-navigation__link" href="">About</a> -->
             </nav>
         </div>
     </div>
