@@ -1,8 +1,10 @@
 /* eslint-env node */
-const {src, dest, series, parallel, watch} = require('gulp');
+const { src, dest, series, parallel, watch } = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 // unit testing
 const jasmine = require('gulp-jasmine');
+const replace = require('gulp-replace');
+ require('dotenv').config();
 // live reloading
 const browserSync = require('browser-sync').create();
 // css optimization
@@ -16,6 +18,13 @@ const terser = require('gulp-terser');
 // image optimization
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
+
+function replaceApi(done) {
+    src(['./index.html'])
+        .pipe(replace('GOOGLEMAP_API_KEY', process.env.API_KEY))
+        .pipe(dest('./dist'));
+    done();
+}
 
 /**
  * @function watchTestFiles
@@ -33,15 +42,16 @@ function watchTestFiles() {
  * @function watchFiles
  * @description watch css, js and html files
  */
-function watchFiles() {
+function watchFiles(done) {
     browserSync.init({
-        server: './',
+        server: './dist',
     });
     // Update the "default" Task, calling .init on browserSync starts the server.
     watch('css/**/*.css', series('styles'));
     watch('js/**/*.js', series('scripts'));
     watch('index.html', series('copyHTML'));
     watch('./dist/index.html').on('change', browserSync.reload);
+    done();
 }
 
 /**
@@ -119,18 +129,19 @@ function distScripts(done) {
  * @function styles
  * @description load css files, add vendor prefixes for development and pipe to dest folder
  */
-function styles() {
+function styles(done) {
     let processors = [
         autoprefixer({
             overrideBrowserslist: ['last 2 versions'],
         })
     ];
-    return src('css/**/*.css')
+    src('css/**/*.css')
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
         .pipe(sourcemaps.init())
         .pipe(dest('dist/css'))
         .pipe(browserSync.stream()); // Update the "styles" Function
+    done();
 }
 
 /**
@@ -184,9 +195,10 @@ exports.copyHTML = copyHTML;
 exports.scripts = scripts;
 exports.distScripts = distScripts;
 exports.distStyles = distStyles;
+exports.replaceApi = replaceApi;
 
 // For development
-exports.default = series(copyFont, copyHTML, copyImages, styles, scripts, copyTests, watchFiles);
+exports.default = series(copyFont, copyHTML, copyImages, styles, scripts, copyTests, replaceApi, watchFiles);
 // for unit testing
 exports.unitTest = series(watchTestFiles);
 // For production
