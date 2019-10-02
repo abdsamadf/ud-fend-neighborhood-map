@@ -67,6 +67,7 @@ function initMap() {
         center: { lat: placeModel[0].location.lat, lng: placeModel[0].location.lng},
         zoom: 13,
     });
+    var infoWindow = new google.maps.InfoWindow();
 
     // The following group uses the location array to create an array of markers on initialize.
     for (let i = 0; i < placeModel.length; i++) {
@@ -82,6 +83,11 @@ function initMap() {
         });
         // Push the marker to our array of markers.
         markers.push(marker);
+
+        // Create an onclick event to open the large infowindow at each marker.
+        marker.addListener('click', function () {
+            populateInfoWindow(this, infoWindow);
+        });
     }
 
     // This will loop through the markers array and display them all.
@@ -92,4 +98,23 @@ function initMap() {
         bounds.extend(markers[i].position);
     }
     map.fitBounds(bounds);
+}
+
+// This function populates the infowindow when the marker is clicked. We'll only allow
+// one infowindow which will open at the marker that is clicked, and populate based
+// on that markers position.
+function populateInfoWindow(marker, infowindow) {
+    // Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker != marker) {
+        // Clear the infowindow content.
+        infowindow.setContent('');
+        infowindow.marker = marker;
+        // Make sure the marker property is cleared if the infowindow is closed.
+        infowindow.addListener('closeclick', function () {
+            infowindow.marker = null;
+        });
+        infowindow.setContent('<div>' + marker.title + '</div>');
+        // Open the infowindow on the correct marker.
+        infowindow.open(map, marker);
+    }
 }
