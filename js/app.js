@@ -1,6 +1,7 @@
 let map;
 // Create a new blank array for all the listing markers.
 const markers = [];
+let infoWindow = null;
 
 const placeModel = [
     { title: 'Clifton Sea View', location: { lat: 24.789667, lng: 67.04386}},
@@ -35,6 +36,11 @@ const ViewModel = function () {
             }
             return self.placeList();
         } else {
+            // if query changes, infoWindow close
+            if (infoWindow) {
+                infoWindow.close();
+            }
+
             // computed filter place list when query changes
             const filteredList = self.placeList()
                 .filter(place => place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1);
@@ -57,6 +63,15 @@ const ViewModel = function () {
                 .filter(place => place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1);
         }
     });
+
+    // open infoWindow when click events on list items
+    self.openInfoWindow = function(place) {
+        markers.forEach(marker => {
+            if (place.title().toLowerCase() == marker.title.toLowerCase()) {
+                google.maps.event.trigger(marker, 'click');
+            }
+        });
+    };
 };
 
 ko.applyBindings(new ViewModel()); // This makes Knockout get to work
@@ -67,7 +82,7 @@ function initMap() {
         center: { lat: placeModel[0].location.lat, lng: placeModel[0].location.lng},
         zoom: 13,
     });
-    var infoWindow = new google.maps.InfoWindow();
+    infoWindow = new google.maps.InfoWindow();
 
     // The following group uses the location array to create an array of markers on initialize.
     for (let i = 0; i < placeModel.length; i++) {
