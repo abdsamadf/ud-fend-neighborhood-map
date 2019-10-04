@@ -68,6 +68,7 @@ const ViewModel = function () {
     self.openInfoWindow = function(place) {
         markers.forEach(marker => {
             if (place.title().toLowerCase() == marker.title.toLowerCase()) {
+                setMarkerAnimation(marker);
                 google.maps.event.trigger(marker, 'click');
             }
         });
@@ -76,6 +77,12 @@ const ViewModel = function () {
 
 ko.applyBindings(new ViewModel()); // This makes Knockout get to work
 
+
+function setMarkerAnimation(marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    // bounce stops after 1.5 second
+    setTimeout(() => marker.setAnimation(null), 1500);
+}
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -101,6 +108,7 @@ function initMap() {
 
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function () {
+            setMarkerAnimation(marker);
             populateInfoWindow(this, infoWindow);
         });
     }
