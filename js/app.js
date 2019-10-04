@@ -65,11 +65,15 @@ const ViewModel = function () {
     });
 
     // open infoWindow when click events on list items
-    self.openInfoWindow = function(place) {
+    self.openInfoWindow = function (place, event) {
+        let previousSelectedItem = document.querySelector('.mdl-navigation__link--current');
+        if (previousSelectedItem != null) previousSelectedItem.classList.remove('mdl-navigation__link--current');
+
         markers.forEach(marker => {
             if (place.title().toLowerCase() == marker.title.toLowerCase()) {
                 setMarkerAnimation(marker);
                 google.maps.event.trigger(marker, 'click');
+                event.target.classList.add('mdl-navigation__link--current');
             }
         });
     };
