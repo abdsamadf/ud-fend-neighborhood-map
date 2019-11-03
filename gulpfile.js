@@ -88,7 +88,7 @@ function copyImages() {
 }
 
 /**
- * @function distScripts
+ * @function scripts
  * @description load js files and concat it for development and pipe to dest folder
  */
 function scripts(done) {
@@ -103,6 +103,16 @@ function scripts(done) {
         .pipe(sourcemaps.write())
         .pipe(dest('dist/js'))
         .pipe(browserSync.stream());
+    done();
+}
+
+/**
+ * @function polyfillScripts
+ * @description load polyfills and pipe to dest folder
+ */
+function polyfillScripts(done) {
+    src(['polyfilljs/polyfill.min.js'])
+        .pipe(dest('dist/polyfilljs'));
     done();
 }
 
@@ -198,8 +208,8 @@ exports.distStyles = distStyles;
 exports.replaceApi = replaceApi;
 
 // For development
-exports.default = series(copyFont, copyHTML, copyImages, styles, scripts, copyTests, replaceApi, watchFiles);
+exports.default = series(copyFont, copyHTML, copyImages, styles, scripts, polyfillScripts, copyTests, replaceApi, watchFiles);
 // for unit testing
 exports.unitTest = series(watchTestFiles);
 // For production
-exports.dist = series(copyFont, copyHTML, copyImages, distStyles, copyTests, distScripts);
+exports.dist = series(copyFont, copyHTML, replaceApi, copyImages, distStyles, copyTests, distScripts, polyfillScripts);
