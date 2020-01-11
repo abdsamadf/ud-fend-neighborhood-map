@@ -1,8 +1,6 @@
 /* eslint-env node */
 const { src, dest, series, parallel, watch } = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
-// unit testing
-const jasmine = require('gulp-jasmine');
 const replace = require('gulp-replace');
  require('dotenv').config();
 // live reloading
@@ -35,7 +33,7 @@ function watchTestFiles() {
         server: './',
     });
 
-    watch(['js/app.js', 'jasmine/spec/feedreader.js']).on('change', browserSync.reload);
+    watch(['js/app.js']).on('change', browserSync.reload);
 }
 
 /**
@@ -173,33 +171,8 @@ function distStyles() {
         .pipe(browserSync.stream()); // Update the "styles" Function
 }
 
-/**
- * @function tests
- * @description unit testing
- */
-function tests() {
-    var filesForTest = ['js/app.js', 'jasmine/spec/feedreader.js'];
-    return gulp
-        .src(filesForTest)
-        .pipe(watch(filesForTest))
-        .pipe(jasmine())
-}
-
-/**
- * @function copyTests
- * @description copy unit test files and pipe to dest folder
- */
-
-function copyTests(done) {
-    src(['jasmine/**/*.js'])
-        .pipe(dest('dist/jasmine'));
-    done();
-}
-
 exports.styles = styles;
-exports.tests = tests;
 exports.copyFont = copyFont;
-exports.copyTests = copyTests;
 exports.copyImages = copyImages;
 exports.copyHTML = copyHTML;
 exports.scripts = scripts;
@@ -208,8 +181,6 @@ exports.distStyles = distStyles;
 exports.replaceApi = replaceApi;
 
 // For development
-exports.default = series(copyFont, copyHTML, copyImages, styles, scripts, polyfillScripts, copyTests, replaceApi, watchFiles);
-// for unit testing
-exports.unitTest = series(watchTestFiles);
+exports.default = series(copyFont, copyHTML, copyImages, styles, scripts, polyfillScripts, replaceApi, watchFiles);
 // For production
-exports.dist = series(copyFont, copyHTML, replaceApi, copyImages, distStyles, copyTests, distScripts, polyfillScripts);
+exports.dist = series(copyFont, copyHTML, replaceApi, copyImages, distStyles, distScripts, polyfillScripts);
