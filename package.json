@@ -1,25 +1,23 @@
 {
-  "name": "ud-fend-neighborhood",
+  "name": "ud-fend-neighborhood-map",
   "version": "1.0.0",
-  "description": "Udacity FEND Neighborhood",
+  "description": "Udacity FEND Neighborhood Map",
   "main": "app.js",
   "scripts": {
     "development": "cross-env NODE_ENV=development gulp",
     "dist": "cross-env NODE_ENV=production gulp dist",
-    "unitTest": "cross-env NODE_ENV=test gulp unitTest",
     "start": "npm run development",
     "build": "npm run dist",
-    "test": "npm run unitTest",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/abdsamadf/ud-fend-neighborhood-map.git"
   },
   "author": "Abdul Samad <abdulsamadf97@gmail.com> (https://github.com/abdsamadf)",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/abdsamadf/ud-fend-neighborhood-map/issues"
   },
   "homepage": "",
   "readmeFilename": "README.markdown",
@@ -50,6 +48,18 @@
   "keywords": [
     "Udacity",
     "FEND",
-    "JavaScript"
+    "JavaScript",
+    "Knockout JS",
+    "Foursquare API",
+    "Google",
+    "Maps",
+    "API",
+    "Gulp",
+    "project",
+    "Neighborhood",
+    "Map",
+    "Material",
+    "Design",
+    "Lite"
   ]
 }
