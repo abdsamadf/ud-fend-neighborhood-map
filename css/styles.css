@@ -11,3 +11,8 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+img[src$="centerme"] {
+    display: block;
+    margin: 0 auto;
+}
