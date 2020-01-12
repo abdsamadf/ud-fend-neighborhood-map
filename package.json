@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/abdsamadf/ud-fend-neighborhood-map/issues"
   },
-  "homepage": "",
+  "homepage": "https://abdsamadf.github.io/ud-fend-neighborhood-map",
   "readmeFilename": "README.markdown",
   "devDependencies": {
     "@babel/core": "^7.7.7",
