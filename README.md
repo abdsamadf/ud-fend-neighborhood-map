@@ -100,3 +100,8 @@ In this project, I learned how design patterns assist in developing a manageable
 Contributions are always welcome! Please read the [contribution guidelines](CONTRIBUTING.md) first.
 
 Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms.
+
+## LICENSE
+[![MIT license](https://img.shields.io/github/license/abdsamadf/ud-fend-neighborhood-map?style=for-the-badge)](http://opensource.org/licenses/MIT)
+
+[MIT](https://github.com/abdsamadf/ud-fend-neighborhood-map/blob/master/LICENSE) © Abdul Samad
