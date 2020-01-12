@@ -178,7 +178,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.addListener('closeclick', function () {
             infowindow.marker = null;
         });
-        infowindow.setContent('<div>' + marker.title + '<p>Address: ' + marker.address + '<br>Category Type: ' + marker.category + '</p>' + '</div>');
+        infowindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '<p>Address: ' + marker.address + '<br>Category Type: ' + marker.category + '</p>' + '</div>');
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
     }
