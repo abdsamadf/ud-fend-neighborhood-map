@@ -25,7 +25,7 @@ This project is from my Front-End Web Developer Nanodegree Program at Udacity. T
   - [License](#license)
 
 ## Get Started
-Click on this [link]() to see the website or you can download or clone the project, and loading up the index.html file in your browser.
+Click on this [link](https://abdsamadf.github.io/ud-fend-neighborhood-map) to see the website or you can download or clone the project, and run `npm start`.
 
 ##  Motivation
 The neighborhood map application is complex enough and incorporates a variety of data points that it can easily become unwieldy to manage. There are a number of frameworks, libraries and APIs available to make this process more manageable and many employers are looking for specific skills in using these packages.
