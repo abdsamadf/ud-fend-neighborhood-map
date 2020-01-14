@@ -183,7 +183,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.addListener('closeclick', function () {
             infowindow.marker = null;
         });
-        infowindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '<p>Address: ' + marker.address + '<br>Category Type: ' + marker.category + '</p>' + '<p></p>Data retrieved from Foursquare</p>' + '</div>');
+        infowindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '<p>Address: ' + marker.address + '<br>Category Type: ' + marker.category + '</p>' + 'Data retrieved from Foursquare' + '</div>');
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
     }
