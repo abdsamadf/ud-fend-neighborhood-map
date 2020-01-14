@@ -119,6 +119,11 @@ function setMarkerAnimation(marker) {
     setTimeout(() => marker.setAnimation(null), 1500);
 }
 
+// https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282
+function googleMapError() {
+	window.alert("google map failed to load");
+}
+
 async function initMap() {
     await initPlaces();
     map = new google.maps.Map(document.getElementById('map'), {
