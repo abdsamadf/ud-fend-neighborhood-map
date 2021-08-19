@@ -1,4 +1,4 @@
-// Recommended class is to store data from Foursquare API
+// Recommended class is to store data from Foursquare API, Yo!
 class RecommendedPlace {
     constructor(placeJSON) {
         this.address = placeJSON.venue.location.address;
